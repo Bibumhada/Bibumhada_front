@@ -59,7 +59,7 @@ const MenuCard = (props: MenuCardProps) => {
       <section>
         <S.TitleLayout onClick={handleLinkClick}>
           <S.RestaurantName>{title}</S.RestaurantName>
-          <S.RestaurantLink src={icon_link} />
+          <S.RestaurantLinkImg src={icon_link} />
         </S.TitleLayout>
         <S.RestaurantTagsUl>
           {categories.map((category, i) => (

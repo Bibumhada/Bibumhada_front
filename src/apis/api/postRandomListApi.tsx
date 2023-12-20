@@ -6,7 +6,7 @@ interface RandomListApiParams {
 }
 
 const postRandomListApi = async ({ longitude, latitude }: RandomListApiParams) => {
-  const response = await axiosInstance.post('/create', {
+  const response = await axiosInstance.post('/api/v1/create', {
     longitude,
     latitude,
   });

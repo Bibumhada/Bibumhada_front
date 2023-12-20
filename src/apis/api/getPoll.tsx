@@ -1,7 +1,11 @@
 import { axiosInstance } from 'apis/base/instance';
 
-const getPoll = async (roomId: string | undefined) => {
-  const response = await axiosInstance.get(`/${roomId}`);
+interface PollParams {
+  roomId: string | undefined;
+}
+
+const getPoll = async ({ roomId }: PollParams) => {
+  const response = await axiosInstance.get(`/api/v1/${roomId}`);
   return response;
 };
 

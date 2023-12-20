@@ -46,7 +46,7 @@ const RandomList = () => {
         category: 'click',
         action: '투표공유하기_버튼',
         label: '음식점 추천 화면',
-        value: roomId,
+        value: Number(roomId),
       });
     }
     navigate(`/random-menu/${roomId}`);
@@ -58,7 +58,7 @@ const RandomList = () => {
     setIsAlertModalOn(false);
   };
 
-  const handleClick = (restaurantId: number, index: number) => {
+  const handleClick = (restaurantId: string, index: number) => {
     ReactGA.event({
       category: 'click',
       action: '마이너스_버튼',
@@ -91,7 +91,7 @@ const RandomList = () => {
       label: '음식점 추천 화면',
     });
     if (roomId) {
-      retryMutate(roomId, { onSuccess: retryOnSuccess });
+      retryMutate({ roomId }, { onSuccess: retryOnSuccess });
     }
   };
 

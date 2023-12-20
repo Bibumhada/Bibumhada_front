@@ -6,7 +6,7 @@ interface VoteApiParams {
 }
 
 const postVoteApi = async ({ roomId, voteList }: VoteApiParams) => {
-  const response = await axiosInstance.post(`${roomId}/vote`, { restaurantIdList: voteList });
+  const response = await axiosInstance.post(`/api/v1${roomId}/vote`, { restaurantIdList: voteList });
   return response.data;
 };
 
