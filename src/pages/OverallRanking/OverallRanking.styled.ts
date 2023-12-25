@@ -10,8 +10,9 @@ export const OverallRankingWrapper = styled.div`
   padding: 45px 19px 43px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: space-between;
   gap: 25px;
+  height: 100vh;
 
   .page-title {
     margin-bottom: 3px;
@@ -97,7 +98,6 @@ export const Distance = styled.p`
 export const ButtonLayout = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
   flex-grow: 1;
 `;
 
@@ -114,8 +114,4 @@ export const ButtonShare = styled.button`
     margin-right: 10px;
     vertical-align: bottom;
   }
-`;
-
-export const RetryButtonLayout = styled.div`
-  margin-top: 12px;
 `;

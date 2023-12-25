@@ -103,16 +103,14 @@ function OverallRanking() {
                 </button>
               </S.RestaurantItem>
             ))}
-            <S.ButtonLayout>
-              <S.ButtonShare onClick={handleModalClick}>
-                <img src={shareResult} alt="share result icon" />
-                공유하기
-              </S.ButtonShare>
-              <S.RetryButtonLayout>
-                <Button onClick={handleRetry}>처음부터 다시하기</Button>
-              </S.RetryButtonLayout>
-            </S.ButtonLayout>
+            <S.ButtonShare onClick={handleModalClick}>
+              <img src={shareResult} alt="share result icon" />
+              공유하기
+            </S.ButtonShare>
           </S.RestaurantList>
+          <S.ButtonLayout>
+            <Button onClick={handleRetry}>처음부터 다시하기</Button>
+          </S.ButtonLayout>
         </S.OverallRankingWrapper>
       </S.Wrapper>
       {/* 모달은 포탈 써서 전역으로 나중에 바꿀게요!! */}
