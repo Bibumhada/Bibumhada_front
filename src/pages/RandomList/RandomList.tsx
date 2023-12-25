@@ -69,7 +69,7 @@ const RandomList = () => {
         if (prev) {
           const updatedList = [...prev];
           updatedList.splice(index, 1);
-          updatedList.push(data);
+          updatedList.push(data.restaurantResList[4]);
           return updatedList;
         }
         return prev;
