@@ -5,7 +5,7 @@ interface RetryApiParams {
 }
 
 const postRetryApi = async ({ roomId }: RetryApiParams) => {
-  const response = await axiosInstance.post(`/api/v1/retry/${roomId}`);
+  const response = await axiosInstance.post(`/api/v1/resuggest/${roomId}`);
   return response.data;
 };
 
