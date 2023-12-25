@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getResult } from 'apis/api/getResult';
+import getResult from 'apis/api/getResult';
 
 const useGetResult = (roomId: string | undefined) => {
   const isFirstRun = useRef(true);
@@ -10,7 +10,7 @@ const useGetResult = (roomId: string | undefined) => {
       await new Promise((resolve) => setTimeout(resolve, 3000));
       isFirstRun.current = false;
     }
-    return getResult(roomId);
+    return getResult({ roomId });
   };
 
   const { data: voteOverallResultData, refetch } = useQuery({

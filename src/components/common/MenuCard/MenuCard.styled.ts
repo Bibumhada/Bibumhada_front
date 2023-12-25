@@ -21,7 +21,7 @@ export const RestaurantName = styled.strong`
   font-size: var(--md);
 `;
 
-export const RestaurantLink = styled.img`
+export const RestaurantLinkImg = styled.img`
   display: inline-block;
 `;
 

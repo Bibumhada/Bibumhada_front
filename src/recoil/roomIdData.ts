@@ -6,7 +6,7 @@ const { persistAtom } = recoilPersist({
   storage: sessionStorage,
 });
 
-export const roomIdData = atom<number | null>({
+export const roomIdData = atom<string | null>({
   key: 'roomIdData',
   default: null,
   effects_UNSTABLE: [persistAtom],
