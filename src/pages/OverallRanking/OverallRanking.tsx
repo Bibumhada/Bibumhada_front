@@ -15,6 +15,7 @@ import { useRecoilState } from 'recoil';
 import { roomIdData } from 'recoil/roomIdData';
 import { randomListData } from 'recoil/randomListData';
 import ReactGA from 'react-ga4';
+import { convertFromBase64 } from 'util/convertToFromBase64';
 
 const OverallRankingWrapper = () => {
   return (
@@ -25,9 +26,13 @@ const OverallRankingWrapper = () => {
 };
 
 function OverallRanking() {
+  const { id: encodedRoomId } = useParams();
+  let roomId: string | undefined;
+  if (encodedRoomId) {
+    roomId = convertFromBase64(encodedRoomId);
+  }
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { id: roomId } = useParams();
   const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const resultData = useGetResult(roomId).voteOverallResultData?.data;

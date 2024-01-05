@@ -14,6 +14,7 @@ import Error from 'pages/Error/Error';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
 import ReactGA from 'react-ga4';
+import { convertToBase64 } from 'util/convertToFromBase64';
 
 const RandomListWrapper = () => {
   return (
@@ -29,6 +30,10 @@ const RandomList = () => {
   const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
 
   const roomId = useRecoilValue(roomIdData);
+  let encodedRoomId: string;
+  if (roomId) {
+    encodedRoomId = convertToBase64(roomId);
+  }
   const { mutate: retryMutate } = useRetryMutation();
   const { mutate: resuggestOneMutate } = useResuggestOneMutation();
 
@@ -49,7 +54,7 @@ const RandomList = () => {
         value: Number(roomId),
       });
     }
-    navigate(`/random-menu/${roomId}`);
+    navigate(`/random-menu/${encodedRoomId}`);
   };
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement>) => {

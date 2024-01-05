@@ -13,6 +13,7 @@ import { useRecoilValue } from 'recoil';
 import { useVoteMutation } from 'apis/query/useVoteMutation';
 import Error from 'pages/Error/Error';
 import ReactGA from 'react-ga4';
+import { convertFromBase64 } from 'util/convertToFromBase64';
 
 const PollWrapper = () => {
   return (
@@ -23,12 +24,16 @@ const PollWrapper = () => {
 };
 
 const Poll = () => {
+  const { id: encodedRoomId } = useParams();
+  let roomId: string | undefined;
+  if (encodedRoomId) {
+    roomId = convertFromBase64(encodedRoomId);
+  }
   const isSharedPage = useRecoilValue(roomIdData);
   const [isShareModalOn, setIsShareModalOn] = useState<boolean>(!!isSharedPage);
   const [clickedIndexArray, setClickedIndexArray] = useState<number[]>([]);
   const [buttonActive, setButtonActive] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { id: roomId } = useParams();
   const { data } = useGetRoom(roomId);
   const { mutate, isLoading } = useVoteMutation();
 
@@ -41,7 +46,7 @@ const Poll = () => {
   }, []);
 
   const onSuccessFn = () => {
-    navigate(`/random-menu/${roomId}/result`);
+    navigate(`/random-menu/${encodedRoomId}/result`);
   };
 
   const handleSubmit = () => {
@@ -55,7 +60,7 @@ const Poll = () => {
     }
     if (clickedIndexArray && roomId) {
       mutate({ roomId, voteList: clickedIndexArray }, { onSuccess: onSuccessFn });
-      navigate(`/random-menu/${roomId}/result`);
+      navigate(`/random-menu/${encodedRoomId}/result`);
     }
   };
 
