@@ -15,6 +15,7 @@ import BottomSheet from 'components/common/modal/BottomSheet';
 import ReactGA from 'react-ga4';
 import { convertToBase64 } from 'util/convertToFromBase64';
 import EndOfListAlertBottomSheet from 'components/common/modal/children/EndOfListAlertBottomSheet';
+import { useRetryListRoom } from 'apis/query/useRetryListRoom';
 
 const RandomListWrapper = () => {
   return (
@@ -36,6 +37,7 @@ const RandomList = () => {
   }
   const { mutate: retryMutate } = useRetryMutation();
   const { mutate: resuggestOneMutate } = useResuggestOneMutation();
+  const { mutate: retryListRoom, data: reloadedDataList } = useRetryListRoom();
 
   useEffect(() => {
     ReactGA.send({
@@ -101,6 +103,20 @@ const RandomList = () => {
     }
   };
 
+  const handleGetNewRestaurantList = () => {
+    if (roomId) {
+      retryListRoom(
+        { roomId },
+        {
+          onSuccess: (reloadedDataList) => {
+            setIsAlertModalOn(false);
+            setRandomList(reloadedDataList.restaurantResList);
+          },
+        },
+      );
+    }
+  };
+
   return (
     <>
       <S.Layout>
@@ -123,7 +139,7 @@ const RandomList = () => {
       </S.Layout>
       {isAlertModalOn && (
         <BottomSheet handleModalClose={handleModalClose}>
-          <EndOfListAlertBottomSheet />
+          <EndOfListAlertBottomSheet onClickGetNewRestaurantList={handleGetNewRestaurantList} />
         </BottomSheet>
       )}
     </>
