@@ -1,9 +1,9 @@
 import React from 'react';
 import logo from 'assets/images/logo.svg';
 import Button from 'components/common/Button/Button';
-import * as S from './EndOfListAlert.styled';
+import * as S from './EndOfListAlertBottomSheet.styled';
 
-const EndOfListAlert = () => {
+const EndOfListAlertBottomSheet = () => {
   return (
     <S.Layout>
       <S.Logo src={logo} alt="오늘의 메뉴 로고" />
@@ -16,4 +16,4 @@ const EndOfListAlert = () => {
   );
 };
 
-export default EndOfListAlert;
+export default EndOfListAlertBottomSheet;
