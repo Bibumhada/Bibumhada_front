@@ -17,6 +17,7 @@ import { useRecoilState } from 'recoil';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
 import ReactGA from 'react-ga4';
+import { convertFromBase64 } from 'util/convertToFromBase64';
 
 const ResultWrapper = () => {
   return (
@@ -27,11 +28,15 @@ const ResultWrapper = () => {
 };
 
 const Result = () => {
+  const { id: encodedRoomId } = useParams();
+  let roomId: string | undefined;
+  if (encodedRoomId) {
+    roomId = convertFromBase64(encodedRoomId);
+  }
   const [IsModalOn, setIsModalOn] = useState<boolean>(false);
   const [text, setText] = useState('1등 음식점을 확인해보세요 👀');
   const [opacity, setOpacity] = useState(1);
   const navigate = useNavigate();
-  const { id: roomId } = useParams();
   const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
   const [randomList, setRandomList] = useRecoilState(randomListData);
 
