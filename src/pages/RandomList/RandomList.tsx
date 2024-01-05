@@ -12,9 +12,9 @@ import { useRetryMutation } from 'apis/query/useRetryMutation';
 import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
 import Error from 'pages/Error/Error';
 import BottomSheet from 'components/common/modal/BottomSheet';
-import EndOfListAlert from 'components/common/modal/children/EndOfListAlert';
 import ReactGA from 'react-ga4';
 import { convertToBase64 } from 'util/convertToFromBase64';
+import EndOfListAlertBottomSheet from 'components/common/modal/children/EndOfListAlertBottomSheet';
 
 const RandomListWrapper = () => {
   return (
@@ -69,6 +69,7 @@ const RandomList = () => {
       action: '마이너스_버튼',
       label: '음식점 추천 화면',
     });
+
     const resuggestOneOnSuccess = (data: any) => {
       setRandomList((prev) => {
         if (prev) {
@@ -81,7 +82,7 @@ const RandomList = () => {
       });
     };
     if (roomId && restaurantId) {
-      resuggestOneMutate({ roomId, restaurantId }, { onSuccess: resuggestOneOnSuccess });
+      resuggestOneMutate({ roomId, restaurantId }, { onSuccess: resuggestOneOnSuccess, onError: () => setIsAlertModalOn(true) });
     }
   };
 
@@ -96,7 +97,7 @@ const RandomList = () => {
       label: '음식점 추천 화면',
     });
     if (roomId) {
-      retryMutate({ roomId }, { onSuccess: retryOnSuccess });
+      retryMutate({ roomId }, { onSuccess: retryOnSuccess, onError: () => setIsAlertModalOn(true) });
     }
   };
 
@@ -122,7 +123,7 @@ const RandomList = () => {
       </S.Layout>
       {isAlertModalOn && (
         <BottomSheet handleModalClose={handleModalClose}>
-          <EndOfListAlert />
+          <EndOfListAlertBottomSheet />
         </BottomSheet>
       )}
     </>
