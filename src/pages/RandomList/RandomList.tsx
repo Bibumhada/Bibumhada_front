@@ -37,7 +37,7 @@ const RandomList = () => {
   }
   const { mutate: retryMutate } = useRetryMutation();
   const { mutate: resuggestOneMutate } = useResuggestOneMutation();
-  const { mutate: retryListRoom, data: reloadedDataList } = useRetryListRoom();
+  const { mutate: retryListRoom } = useRetryListRoom();
 
   useEffect(() => {
     ReactGA.send({
