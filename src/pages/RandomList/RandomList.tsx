@@ -103,7 +103,10 @@ const RandomList = () => {
     }
   };
 
-  const handleGetNewRestaurantList = () => {
+  const handleGetNewRestaurantList = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setIsAlertModalOn(false);
     if (roomId) {
       retryListRoom(
         { roomId },
@@ -139,7 +142,7 @@ const RandomList = () => {
       </S.Layout>
       {isAlertModalOn && (
         <BottomSheet handleModalClose={handleModalClose}>
-          <EndOfListAlertBottomSheet onClickGetNewRestaurantList={handleGetNewRestaurantList} />
+          <EndOfListAlertBottomSheet onClickGetNewRestaurantList={handleGetNewRestaurantList} onClickCloseModal={() => setIsAlertModalOn(false)} />
         </BottomSheet>
       )}
     </>
