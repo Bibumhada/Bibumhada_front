@@ -9,7 +9,7 @@ import winner from 'assets/icons/icon-winner.svg';
 import { useGetResult } from 'apis/query/useGetResult';
 import splitCategory from 'util/splitCategory';
 import AsyncBoundary from 'components/common/AsyncBoundary';
-import Loading from 'pages/Loading/Loading';
+// import Loading from 'pages/Loading/Loading';
 import Error from 'pages/Error/Error';
 import { useRecoilState } from 'recoil';
 import { roomIdData } from 'recoil/roomIdData';
@@ -19,7 +19,13 @@ import { convertFromBase64 } from 'util/convertToFromBase64';
 
 const OverallRankingWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'투표 결과 가져오는 중'} />}>
+    <AsyncBoundary
+      errorFallback={<Error />}
+      suspenseFallback={
+        // <Loading message={'투표 결과 가져오는 중'}/>
+        null
+      }
+    >
       <OverallRanking />
     </AsyncBoundary>
   );
