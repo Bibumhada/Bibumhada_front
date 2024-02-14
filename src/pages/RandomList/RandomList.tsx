@@ -140,11 +140,9 @@ const RandomList = () => {
     setIsContactUsModalOn(false);
   };
 
-  const handleModalCloseWithButtonClick = () =>
-    // event: React.MouseEvent<HTMLButtonElement>
-    {
-      setIsContactUsModalOn(false);
-    };
+  const handleModalCloseWithButtonClick = () => {
+    setIsContactUsModalOn(false);
+  };
 
   return (
     <>
@@ -153,10 +151,10 @@ const RandomList = () => {
           <S.Title>오늘의 메뉴 후보 </S.Title>
           <S.ContactUsButton onClick={handleContactUsModalClick}>
             <img src={ContactUsButton} alt="contact us button" />
-            {isContactUsModalOn && (
-              <ContactUsModal handleModalClose={handleContactUsModalClose} handleModalCloseWithButton={handleModalCloseWithButtonClick}></ContactUsModal>
-            )}
           </S.ContactUsButton>
+          {isContactUsModalOn && (
+            <ContactUsModal handleModalClose={handleContactUsModalClose} handleModalCloseWithButton={handleModalCloseWithButtonClick}></ContactUsModal>
+          )}
         </S.Header>
         <S.CardUl>
           {randomList?.map((el: any, i: number) => (

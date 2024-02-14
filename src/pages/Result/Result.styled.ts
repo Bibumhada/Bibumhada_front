@@ -33,6 +33,12 @@ export const ShareResult = styled.div<ShareResultProps>`
   transition: opacity 5ms;
 `;
 
+export const ContactUsButton = styled.button`
+  position: absolute;
+  top: 45px;
+  right: 28px;
+`;
+
 export const ButtonLayout = styled.div`
   flex-grow: 1;
   display: flex;

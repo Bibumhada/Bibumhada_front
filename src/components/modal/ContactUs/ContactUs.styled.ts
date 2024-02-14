@@ -16,7 +16,6 @@ export const ModalBackground = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: default;
 `;
 
 export const ModalLayout = styled.div`
@@ -33,6 +32,7 @@ export const ModalLayout = styled.div`
   background-color: #fff;
   box-sizing: border-box;
   border-radius: 10px;
+  text-align: center;
 `;
 
 export const ModalTitle = styled.strong`

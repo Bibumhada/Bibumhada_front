@@ -15,6 +15,7 @@ import { useVoteMutation } from 'apis/query/useVoteMutation';
 import IconShare from 'assets/icons/icon-share.svg';
 import ContactUsButton from 'assets/icons/btn-contact-us.svg';
 import { convertFromBase64 } from 'util/convertToFromBase64';
+import ContactUsModal from 'components/modal/ContactUs/ContactUs';
 
 const PollWrapper = () => {
   return (
@@ -32,6 +33,7 @@ const Poll = () => {
   }
   const isSharedPage = useRecoilValue(roomIdData);
   const [isShareModalOn, setIsShareModalOn] = useState<boolean>(!!isSharedPage);
+  const [isContactUsModalOn, setIsContactUsModalOn] = useState<boolean>(false);
   const [clickedIndexArray, setClickedIndexArray] = useState<number[]>([]);
   const [buttonActive, setButtonActive] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -102,6 +104,20 @@ const Poll = () => {
     });
   };
 
+  const handleContactUsModalClick = () => {
+    setIsContactUsModalOn(!isContactUsModalOn);
+  };
+
+  const handleContactUsModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setIsContactUsModalOn(false);
+  };
+
+  const handleModalCloseWithButtonClick = () => {
+    setIsContactUsModalOn(false);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -110,9 +126,12 @@ const Poll = () => {
         <S.Layout>
           <S.Header>
             <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
-            <S.ContactUsButton>
+            <S.ContactUsButton onClick={handleContactUsModalClick}>
               <img src={ContactUsButton} alt="contact us button" />
             </S.ContactUsButton>
+            {isContactUsModalOn && (
+              <ContactUsModal handleModalClose={handleContactUsModalClose} handleModalCloseWithButton={handleModalCloseWithButtonClick}></ContactUsModal>
+            )}
           </S.Header>
           <S.CardUl>
             {data?.data.restaurantResList.map((el: any, i: number) => (
