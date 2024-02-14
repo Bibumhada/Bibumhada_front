@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga4';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { roomIdData } from 'recoil/roomIdData';
+import { randomListData } from 'recoil/randomListData';
+import { locationData } from 'recoil/locationData';
+import * as S from './RandomList.styled';
 import Loading from 'pages/Loading/Loading';
+import Error from 'pages/Error/Error';
 import MenuCard from 'components/common/MenuCard/MenuCard';
 import AsyncBoundary from 'components/common/AsyncBoundary';
-import * as S from './RandomList.styled';
 import Button from 'components/common/Button/Button';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { randomListData } from 'recoil/randomListData';
-import { roomIdData } from 'recoil/roomIdData';
+import BottomSheet from 'components/common/BottomSheet/BottomSheet';
+import EndOfListAlertBottomSheet from 'components/common/BottomSheet/children/EndOfListAlertBottomSheet';
+import ContactUsModal from 'components/modal/ContactUs/ContactUs';
 import { useRetryMutation } from 'apis/query/useRetryMutation';
 import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
-import Error from 'pages/Error/Error';
-import BottomSheet from 'components/common/modal/BottomSheet';
-import ReactGA from 'react-ga4';
-import { convertToBase64 } from 'util/convertToFromBase64';
-import EndOfListAlertBottomSheet from 'components/common/modal/children/EndOfListAlertBottomSheet';
 import { useRandomListMutation } from 'apis/query/useRandomListMutation';
-import { locationData } from 'recoil/locationData';
+import { convertToBase64 } from 'util/convertToFromBase64';
+import ContactUsButton from 'assets/icons/btn-contact-us.svg';
 
 const RandomListWrapper = () => {
   return (
@@ -30,9 +32,8 @@ const RandomList = () => {
   const navigate = useNavigate();
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
+  const [isContactUsModalOn, setIsContactUsModalOn] = useState<boolean>(false);
   const location = useRecoilValue(locationData);
-  // const latitude = location?.latitude;
-  // const longitude = location?.longitude;
 
   const [roomId, setRoomId] = useRecoilState(roomIdData);
   let encodedRoomId: string;
@@ -129,10 +130,32 @@ const RandomList = () => {
     }
   };
 
+  const handleContactUsModalClick = () => {
+    setIsContactUsModalOn(!isContactUsModalOn);
+  };
+
+  const handleContactUsModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setIsContactUsModalOn(false);
+  };
+
+  const handleModalCloseWithButtonClick = () => {
+    setIsContactUsModalOn(false);
+  };
+
   return (
     <>
       <S.Layout>
-        <S.Title>오늘의 메뉴 후보 </S.Title>
+        <S.Header>
+          <S.Title>오늘의 메뉴 후보 </S.Title>
+          <S.ContactUsButton onClick={handleContactUsModalClick}>
+            <img src={ContactUsButton} alt="contact us button" />
+          </S.ContactUsButton>
+          {isContactUsModalOn && (
+            <ContactUsModal handleModalClose={handleContactUsModalClose} handleModalCloseWithButton={handleModalCloseWithButtonClick}></ContactUsModal>
+          )}
+        </S.Header>
         <S.CardUl>
           {randomList?.map((el: any, i: number) => (
             <MenuCard

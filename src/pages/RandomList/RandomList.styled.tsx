@@ -14,10 +14,17 @@ export const Layout = styled.div`
   justify-content: space-between;
 `;
 
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-right: 10px;
+  margin-bottom: 11px;
+`;
+
 export const Title = styled.h1`
-  /* display: block; */
+  display: inline-block;
   width: 200px;
-  margin: 0 auto 11px;
   font-size: var(--xxl);
   font-weight: var(--font-bold);
   color: white;
@@ -33,6 +40,10 @@ export const Title = styled.h1`
     right: -15px;
     background: url(${icon_yummy}) 0 0 no-repeat;
   }
+`;
+
+export const ContactUsButton = styled.button`
+  /* cursor: pointer; */
 `;
 
 export const CardUl = styled.ul`

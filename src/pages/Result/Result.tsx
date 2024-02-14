@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Slider from 'react-slick';
-import { useGetResult } from 'apis/query/useGetResult';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import * as S from './Result.styled';
-import ResultCard from 'components/common/ResultCard/ResultCard';
-import Button from 'components/common/Button/Button';
-import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
-import shareResult from 'assets/icons/icon-share-result.svg';
-import retry from 'assets/icons/icon-retry-orange.svg';
-import AsyncBoundary from 'components/common/AsyncBoundary';
-import Loading from 'pages/Loading/Loading';
-import Error from 'pages/Error/Error';
+import ReactGA from 'react-ga4';
 import { useRecoilState } from 'recoil';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
-import ReactGA from 'react-ga4';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import * as S from './Result.styled';
+import Loading from 'pages/Loading/Loading';
+import Error from 'pages/Error/Error';
+import ResultCard from 'components/common/ResultCard/ResultCard';
+import Button from 'components/common/Button/Button';
+import ShareBottomSheet from 'components/common/BottomSheet/ShareBottomSheet';
+import AsyncBoundary from 'components/common/AsyncBoundary';
+import ContactUsModal from 'components/modal/ContactUs/ContactUs';
+import { useGetResult } from 'apis/query/useGetResult';
+import shareResult from 'assets/icons/icon-share-result.svg';
+import retry from 'assets/icons/icon-retry-orange.svg';
+import ContactUsButton from 'assets/icons/btn-contact-us.svg';
 import { convertFromBase64 } from 'util/convertToFromBase64';
 
 const ResultWrapper = () => {
@@ -39,6 +41,7 @@ const Result = () => {
   const navigate = useNavigate();
   const [recoilRoomId, setRecoilRoomId] = useRecoilState(roomIdData);
   const [randomList, setRandomList] = useRecoilState(randomListData);
+  const [isContactUsModalOn, setIsContactUsModalOn] = useState<boolean>(false);
 
   const { voteOverallResultData, refetch } = useGetResult(roomId);
 
@@ -106,6 +109,20 @@ const Result = () => {
     navigate('/');
   };
 
+  const handleContactUsModalClick = () => {
+    setIsContactUsModalOn(!isContactUsModalOn);
+  };
+
+  const handleContactUsModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setIsContactUsModalOn(false);
+  };
+
+  const handleModalCloseWithButtonClick = () => {
+    setIsContactUsModalOn(false);
+  };
+
   return (
     <>
       <button style={{ position: 'absolute' }}>Result</button>
@@ -113,6 +130,12 @@ const Result = () => {
         <S.ShareResult $isFirstText={text === '1등 음식점을 확인해보세요 👀'} $opacity={opacity}>
           {text}
         </S.ShareResult>
+        <S.ContactUsButton onClick={handleContactUsModalClick}>
+          <img src={ContactUsButton} alt="button to contact us popup" />
+        </S.ContactUsButton>
+        {isContactUsModalOn && (
+          <ContactUsModal handleModalClose={handleContactUsModalClose} handleModalCloseWithButton={handleModalCloseWithButtonClick}></ContactUsModal>
+        )}
         {winnerData.length === 1 ? (
           winnerData.map((item: any, i: number) => (
             <ResultCard
