@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import bg_vote from 'assets/images/background-top.png';
-import icon_yummy from 'assets/icons/icon-yummy.svg';
 import BottomSheet from 'components/common/modal/BottomSheet';
 
 export const Layout = styled.div`
@@ -15,24 +14,24 @@ export const Layout = styled.div`
   justify-content: space-between;
 `;
 
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-right: 10px;
+  margin-bottom: 11px;
+`;
+
 export const Title = styled.h1`
-  /* width: 90%; */
-  margin: 0 auto 11px;
+  display: inline-block;
   font-size: var(--xxl);
   font-weight: var(--font-bold);
   color: white;
   position: relative;
+`;
 
-  /* &::after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    width: 27px;
-    height: 27px;
-    bottom: 2px;
-    right: -10px;
-    background: url(${icon_yummy}) 0 0 no-repeat;
-  } */
+export const ContactUsButton = styled.button`
+  cursor: pointer;
 `;
 
 export const CardUl = styled.ul`

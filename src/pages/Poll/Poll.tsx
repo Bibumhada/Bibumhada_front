@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import AsyncBoundary from 'components/common/AsyncBoundary';
+import ReactGA from 'react-ga4';
+import { useRecoilValue } from 'recoil';
+import { roomIdData } from 'recoil/roomIdData';
 import * as S from './Poll.styled';
-import { useGetRoom } from 'apis/query/useGetRoom';
+import Loading from 'pages/Loading/Loading';
+import Error from 'pages/Error/Error';
+import AsyncBoundary from 'components/common/AsyncBoundary';
 import MenuCard from 'components/common/MenuCard/MenuCard';
 import Button from 'components/common/Button/Button';
-import Loading from 'pages/Loading/Loading';
 import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
-import icon_share from 'assets/icons/icon-share.svg';
-import { roomIdData } from 'recoil/roomIdData';
-import { useRecoilValue } from 'recoil';
+import { useGetRoom } from 'apis/query/useGetRoom';
 import { useVoteMutation } from 'apis/query/useVoteMutation';
-import Error from 'pages/Error/Error';
-import ReactGA from 'react-ga4';
+import IconShare from 'assets/icons/icon-share.svg';
+import ContactUsButton from 'assets/icons/btn-contact-us.svg';
 import { convertFromBase64 } from 'util/convertToFromBase64';
 
 const PollWrapper = () => {
@@ -107,7 +108,12 @@ const Poll = () => {
         <Loading message={'투표 결과 가져오는중'} />
       ) : (
         <S.Layout>
-          <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
+          <S.Header>
+            <S.Title>오늘 당기는 메뉴는? 🤤</S.Title>
+            <S.ContactUsButton>
+              <img src={ContactUsButton} alt="contact us button" />
+            </S.ContactUsButton>
+          </S.Header>
           <S.CardUl>
             {data?.data.restaurantResList.map((el: any, i: number) => (
               <MenuCard
@@ -128,7 +134,7 @@ const Poll = () => {
           </S.CardUl>
           <S.ButtonLayout>
             <Button onClick={handleShareClick} $style={{ width: '25%' }}>
-              <S.ShareImg src={icon_share} alt="공유하기 버튼" />
+              <S.ShareImg src={IconShare} alt="공유하기 버튼" />
             </Button>
             <Button $variant={buttonActive ? 'orange' : 'gray'} onClick={handleSubmit} disabled={!buttonActive}>
               투표하고 결과보기
