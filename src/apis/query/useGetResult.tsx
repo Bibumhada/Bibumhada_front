@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import getResult from 'apis/api/getResult';
 
-const useGetResult = (roomId: string | undefined) => {
+const useGetResultWithLoading = (roomId: string | undefined) => {
   const isFirstRun = useRef(true);
 
   const queryFn = async () => {
@@ -23,4 +23,15 @@ const useGetResult = (roomId: string | undefined) => {
   return { voteOverallResultData, refetch };
 };
 
-export { useGetResult };
+const useGetResult = (roomId: string | undefined) => {
+  const { data: voteOverallResultData, refetch } = useQuery({
+    queryKey: ['voteOverallResult', roomId],
+    queryFn: () => getResult({ roomId }),
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
+
+  return { voteOverallResultData, refetch };
+};
+
+export { useGetResult, useGetResultWithLoading };
