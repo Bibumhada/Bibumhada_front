@@ -15,7 +15,8 @@ import BottomSheet from 'components/common/modal/BottomSheet';
 import ReactGA from 'react-ga4';
 import { convertToBase64 } from 'util/convertToFromBase64';
 import EndOfListAlertBottomSheet from 'components/common/modal/children/EndOfListAlertBottomSheet';
-import { useRetryListRoom } from 'apis/query/useRetryListRoom';
+import { useRandomListMutation } from 'apis/query/useRandomListMutation';
+import { locationData } from 'recoil/locationData';
 
 const RandomListWrapper = () => {
   return (
@@ -29,15 +30,19 @@ const RandomList = () => {
   const navigate = useNavigate();
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
+  const location = useRecoilValue(locationData);
+  // const latitude = location?.latitude;
+  // const longitude = location?.longitude;
 
-  const roomId = useRecoilValue(roomIdData);
+  const [roomId, setRoomId] = useRecoilState(roomIdData);
   let encodedRoomId: string;
   if (roomId) {
     encodedRoomId = convertToBase64(roomId);
   }
+
   const { mutate: retryMutate } = useRetryMutation();
   const { mutate: resuggestOneMutate } = useResuggestOneMutation();
-  const { mutate: retryListRoom } = useRetryListRoom();
+  const { mutate: randomListMutate } = useRandomListMutation();
 
   useEffect(() => {
     ReactGA.send({
@@ -107,13 +112,17 @@ const RandomList = () => {
     event.stopPropagation();
     event.preventDefault();
     setIsAlertModalOn(false);
-    if (roomId) {
-      retryListRoom(
-        { roomId },
+    if (roomId && location) {
+      const latitude = location?.latitude;
+      const longitude = location?.longitude;
+
+      randomListMutate(
+        { longitude, latitude },
         {
-          onSuccess: (reloadedDataList) => {
+          onSuccess: (newRandomData) => {
             setIsAlertModalOn(false);
-            setRandomList(reloadedDataList.restaurantResList);
+            setRandomList(newRandomData.data.restaurantResList);
+            setRoomId(newRandomData.data.id);
           },
         },
       );
