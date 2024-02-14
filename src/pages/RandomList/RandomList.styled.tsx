@@ -43,7 +43,7 @@ export const Title = styled.h1`
 `;
 
 export const ContactUsButton = styled.button`
-  cursor: pointer;
+  /* cursor: pointer; */
 `;
 
 export const CardUl = styled.ul`

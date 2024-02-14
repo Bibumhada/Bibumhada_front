@@ -13,6 +13,7 @@ import AsyncBoundary from 'components/common/AsyncBoundary';
 import Button from 'components/common/Button/Button';
 import BottomSheet from 'components/common/BottomSheet/BottomSheet';
 import EndOfListAlertBottomSheet from 'components/common/BottomSheet/children/EndOfListAlertBottomSheet';
+import ContactUsModal from 'components/modal/ContactUs/ContactUs';
 import { useRetryMutation } from 'apis/query/useRetryMutation';
 import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
 import { useRandomListMutation } from 'apis/query/useRandomListMutation';
@@ -31,6 +32,7 @@ const RandomList = () => {
   const navigate = useNavigate();
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
+  const [isContactUsModalOn, setIsContactUsModalOn] = useState<boolean>(false);
   const location = useRecoilValue(locationData);
 
   const [roomId, setRoomId] = useRecoilState(roomIdData);
@@ -128,13 +130,32 @@ const RandomList = () => {
     }
   };
 
+  const handleContactUsModalClick = () => {
+    setIsContactUsModalOn(!isContactUsModalOn);
+  };
+
+  const handleContactUsModalClose = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setIsContactUsModalOn(false);
+  };
+
+  const handleModalCloseWithButtonClick = () =>
+    // event: React.MouseEvent<HTMLButtonElement>
+    {
+      setIsContactUsModalOn(false);
+    };
+
   return (
     <>
       <S.Layout>
         <S.Header>
           <S.Title>오늘의 메뉴 후보 </S.Title>
-          <S.ContactUsButton>
+          <S.ContactUsButton onClick={handleContactUsModalClick}>
             <img src={ContactUsButton} alt="contact us button" />
+            {isContactUsModalOn && (
+              <ContactUsModal handleModalClose={handleContactUsModalClose} handleModalCloseWithButton={handleModalCloseWithButtonClick}></ContactUsModal>
+            )}
           </S.ContactUsButton>
         </S.Header>
         <S.CardUl>
