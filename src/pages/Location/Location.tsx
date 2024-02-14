@@ -5,9 +5,10 @@ import Loading from 'pages/Loading/Loading';
 import BottomSheet from 'components/common/modal/BottomSheet';
 import * as S from './Location.styled';
 import getAddressAPI from 'apis/api/getAddressApi';
+import { useSetRecoilState } from 'recoil';
 import { randomListData } from 'recoil/randomListData';
 import { roomIdData } from 'recoil/roomIdData';
-import { useSetRecoilState } from 'recoil';
+import { locationData } from 'recoil/locationData';
 import { useRandomListMutation } from 'apis/query/useRandomListMutation';
 import ReactGA from 'react-ga4';
 
@@ -22,6 +23,7 @@ const Location: React.FC = () => {
   const [longitude, setLongitude] = useState<string | null>(null);
   const setRandomList = useSetRecoilState(randomListData);
   const setRoomId = useSetRecoilState(roomIdData);
+  const setLocationDataSet = useSetRecoilState(locationData);
   const { mutate, isLoading } = useRandomListMutation();
 
   useEffect(() => {
@@ -112,6 +114,11 @@ const Location: React.FC = () => {
   const onSuccessFn = (data: any) => {
     setRandomList(data.data.restaurantResList);
     setRoomId(data.data.id);
+    if (latitude && longitude) {
+      setLocationDataSet({ latitude: latitude, longitude: longitude });
+    } else {
+      console.log('location 정보없음');
+    }
     navigate('/random-menu');
   };
 
