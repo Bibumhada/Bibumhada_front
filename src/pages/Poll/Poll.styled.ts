@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import bg_vote from 'assets/images/background-top.png';
-import BottomSheet from 'components/common/modal/BottomSheet';
+import BottomSheet from 'components/common/BottomSheet/BottomSheet';
 
 export const Layout = styled.div`
   width: 100%;

@@ -9,7 +9,7 @@ import Error from 'pages/Error/Error';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import MenuCard from 'components/common/MenuCard/MenuCard';
 import Button from 'components/common/Button/Button';
-import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
+import ShareBottomSheet from 'components/common/BottomSheet/ShareBottomSheet';
 import { useGetRoom } from 'apis/query/useGetRoom';
 import { useVoteMutation } from 'apis/query/useVoteMutation';
 import IconShare from 'assets/icons/icon-share.svg';

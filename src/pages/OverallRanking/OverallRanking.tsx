@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './OverallRanking.styled';
-import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
+import ShareBottomSheet from 'components/common/BottomSheet/ShareBottomSheet';
 import Button from 'components/common/Button/Button';
 import toDetail from 'assets/icons/btn-link-gray.svg';
 import shareResult from 'assets/icons/icon-share-resut.svg';

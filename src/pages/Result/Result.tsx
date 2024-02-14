@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import * as S from './Result.styled';
 import ResultCard from 'components/common/ResultCard/ResultCard';
 import Button from 'components/common/Button/Button';
-import ShareBottomSheet from 'components/common/modal/ShareBottomSheet';
+import ShareBottomSheet from 'components/common/BottomSheet/ShareBottomSheet';
 import shareResult from 'assets/icons/icon-share-result.svg';
 import retry from 'assets/icons/icon-retry-orange.svg';
 import AsyncBoundary from 'components/common/AsyncBoundary';

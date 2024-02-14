@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import Loading from 'pages/Loading/Loading';
-import BottomSheet from 'components/common/modal/BottomSheet';
+import BottomSheet from 'components/common/BottomSheet/BottomSheet';
 import * as S from './Location.styled';
 import getAddressAPI from 'apis/api/getAddressApi';
 import { useSetRecoilState } from 'recoil';
