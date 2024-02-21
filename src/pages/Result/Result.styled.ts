@@ -24,7 +24,7 @@ export const ShareResult = styled.div<ShareResultProps>`
   transform: translate(-50%, 0);
   color: #fff;
   font-weight: var(--font-bold);
-  font-size: var(--xxl);
+  font-size: var(--xl);
   line-height: 35px;
   text-align: center;
   white-space: pre-line;

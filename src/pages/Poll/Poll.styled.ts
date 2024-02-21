@@ -24,7 +24,7 @@ export const Header = styled.header`
 
 export const Title = styled.h1`
   display: inline-block;
-  font-size: var(--xxl);
+  font-size: var(--xl);
   font-weight: var(--font-bold);
   color: white;
   position: relative;

@@ -25,7 +25,7 @@ export const Header = styled.header`
 export const Title = styled.h1`
   display: inline-block;
   width: 200px;
-  font-size: var(--xxl);
+  font-size: var(--xl);
   font-weight: var(--font-bold);
   color: white;
   position: relative;
@@ -37,7 +37,7 @@ export const Title = styled.h1`
     width: 27px;
     height: 27px;
     bottom: 2px;
-    right: -15px;
+    right: -1px;
     background: url(${icon_yummy}) 0 0 no-repeat;
   }
 `;

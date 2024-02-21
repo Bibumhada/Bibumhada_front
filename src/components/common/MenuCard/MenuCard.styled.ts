@@ -19,6 +19,13 @@ export const TitleLayout = styled.div`
 export const RestaurantName = styled.strong`
   font-weight: var(--font-semi-bold);
   font-size: var(--md);
+  white-space: normal;
+  /* word-break: keep-all; */
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 export const RestaurantLinkImg = styled.img`
