@@ -44,10 +44,11 @@ export const multipleWinnerRanking = styled.p`
 export const RestaurantName = styled.button`
   display: flex;
   align-items: center;
-  margin: 23px 0 15px;
+  margin: 28px 0;
 
   .name {
-    font-size: 30px;
+    display: inline;
+    font-size: var(--xl);
     font-weight: var(--font-bold);
     flex-grow: 1;
     white-space: normal;
