@@ -15,6 +15,13 @@ if (process.env.REACT_APP_GOOGLE_ANALYTICS) {
   ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
 }
 
+if (process.env.NODE_ENV === 'production') {
+  console = window.console || {};
+  console.log = function no_console() {};
+  console.warn = function no_console() {};
+  console.error = function () {};
+}
+
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
