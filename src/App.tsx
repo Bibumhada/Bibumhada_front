@@ -27,7 +27,6 @@ function App() {
   RouteChangeTracker();
 
   useEffect(() => {
-    //debounce추가
     const handleResize = () => {
       let vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
