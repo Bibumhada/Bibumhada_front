@@ -11,6 +11,14 @@ declare global {
 
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOM.createRoot(container);
+
+if (process.env.NODE_ENV === 'production') {
+  console = window.console || {};
+  console.log = function no_console() {};
+  console.warn = function no_console() {};
+  console.error = function () {};
+}
+
 root.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <App />

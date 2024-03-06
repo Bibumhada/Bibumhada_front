@@ -92,7 +92,16 @@ const RandomList = () => {
       });
     };
     if (roomId && restaurantId) {
-      resuggestOneMutate({ roomId, restaurantId }, { onSuccess: resuggestOneOnSuccess, onError: () => setIsAlertModalOn(true) });
+      resuggestOneMutate(
+        { roomId, restaurantId },
+        {
+          onSuccess: resuggestOneOnSuccess,
+          onError: () => {
+            console.clear();
+            setIsAlertModalOn(true);
+          },
+        },
+      );
     }
   };
 
@@ -107,7 +116,16 @@ const RandomList = () => {
       label: '음식점 추천 화면',
     });
     if (roomId) {
-      retryMutate({ roomId }, { onSuccess: retryOnSuccess, onError: () => setIsAlertModalOn(true) });
+      retryMutate(
+        { roomId },
+        {
+          onSuccess: retryOnSuccess,
+          onError: () => {
+            console.clear();
+            setIsAlertModalOn(true);
+          },
+        },
+      );
     }
   };
 
@@ -121,15 +139,13 @@ const RandomList = () => {
 
       setIsLoadingOn(true);
 
-      // 2초 동안 로딩 gif를 보여준 후에 데이터를 가져옴
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // 데이터를 가져온 후에 로딩 상태를 false로 변경하고 randomListMutate 함수를 호출
       randomListMutate(
         { longitude, latitude },
         {
           onSuccess: (newRandomData) => {
-            setIsLoadingOn(false); // 로딩 상태를 false로 변경
+            setIsLoadingOn(false);
             setIsAlertModalOn(false);
             setRandomList(newRandomData.data.restaurantResList);
             setRoomId(newRandomData.data.id);
