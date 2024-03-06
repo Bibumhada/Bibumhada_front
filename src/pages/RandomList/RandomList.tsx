@@ -19,6 +19,7 @@ import { useResuggestOneMutation } from 'apis/query/useResuggestOneMutation';
 import { useRandomListMutation } from 'apis/query/useRandomListMutation';
 import { convertToBase64 } from 'util/convertToFromBase64';
 import ContactUsButton from 'assets/icons/btn-contact-us.svg';
+import LoadingAsGif from 'assets/gif/loading.gif';
 
 const RandomListWrapper = () => {
   return (
@@ -33,6 +34,7 @@ const RandomList = () => {
   const [randomList, setRandomList] = useRecoilState(randomListData);
   const [isAlertModalOn, setIsAlertModalOn] = useState<boolean>(false);
   const [isContactUsModalOn, setIsContactUsModalOn] = useState<boolean>(false);
+  const [isLoadingOn, setIsLoadingOn] = useState<boolean>(false);
   const location = useRecoilValue(locationData);
 
   const [roomId, setRoomId] = useRecoilState(roomIdData);
@@ -109,7 +111,7 @@ const RandomList = () => {
     }
   };
 
-  const handleGetNewRestaurantList = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleGetNewRestaurantList = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
     setIsAlertModalOn(false);
@@ -117,10 +119,17 @@ const RandomList = () => {
       const latitude = location?.latitude;
       const longitude = location?.longitude;
 
+      setIsLoadingOn(true);
+
+      // 2초 동안 로딩 gif를 보여준 후에 데이터를 가져옴
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // 데이터를 가져온 후에 로딩 상태를 false로 변경하고 randomListMutate 함수를 호출
       randomListMutate(
         { longitude, latitude },
         {
           onSuccess: (newRandomData) => {
+            setIsLoadingOn(false); // 로딩 상태를 false로 변경
             setIsAlertModalOn(false);
             setRandomList(newRandomData.data.restaurantResList);
             setRoomId(newRandomData.data.id);
@@ -176,6 +185,11 @@ const RandomList = () => {
         <BottomSheet handleModalClose={handleModalClose}>
           <EndOfListAlertBottomSheet onClickGetNewRestaurantList={handleGetNewRestaurantList} onClickCloseModal={() => setIsAlertModalOn(false)} />
         </BottomSheet>
+      )}
+      {isLoadingOn && (
+        <S.LoadingGifBackground>
+          <S.LoadingGif src={LoadingAsGif} />
+        </S.LoadingGifBackground>
       )}
     </>
   );
