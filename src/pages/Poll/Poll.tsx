@@ -16,6 +16,7 @@ import IconShare from 'assets/icons/icon-share.svg';
 import ContactUsButton from 'assets/icons/btn-contact-us.svg';
 import { convertFromBase64 } from 'util/convertToFromBase64';
 import ContactUsModal from 'components/modal/ContactUs/ContactUs';
+import useGetResult from 'apis/query/useGetResult';
 
 const PollWrapper = () => {
   return (
@@ -40,6 +41,8 @@ const Poll = () => {
   const { data } = useGetRoom(roomId);
   const { mutate, isLoading } = useVoteMutation();
 
+  const { refetch } = useGetResult(roomId);
+
   useEffect(() => {
     ReactGA.send({
       hitType: 'pageview',
@@ -49,6 +52,7 @@ const Poll = () => {
   }, []);
 
   const onSuccessFn = () => {
+    refetch();
     navigate(`/random-menu/${encodedRoomId}/result`);
   };
 

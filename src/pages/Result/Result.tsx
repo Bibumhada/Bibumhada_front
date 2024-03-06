@@ -8,14 +8,13 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import * as S from './Result.styled';
-import Loading from 'pages/Loading/Loading';
 import Error from 'pages/Error/Error';
 import ResultCard from 'components/common/ResultCard/ResultCard';
 import Button from 'components/common/Button/Button';
 import ShareBottomSheet from 'components/common/BottomSheet/ShareBottomSheet';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import ContactUsModal from 'components/modal/ContactUs/ContactUs';
-import { useGetResult } from 'apis/query/useGetResult';
+import useGetResult from 'apis/query/useGetResult';
 import shareResult from 'assets/icons/icon-share-result.svg';
 import retry from 'assets/icons/icon-retry-orange.svg';
 import ContactUsButton from 'assets/icons/btn-contact-us.svg';
@@ -23,7 +22,7 @@ import { convertFromBase64 } from 'util/convertToFromBase64';
 
 const ResultWrapper = () => {
   return (
-    <AsyncBoundary errorFallback={<Error />} suspenseFallback={<Loading message={'투표 결과 가져오는 중'} />}>
+    <AsyncBoundary errorFallback={<Error />}>
       <Result />
     </AsyncBoundary>
   );
@@ -44,11 +43,16 @@ const Result = () => {
   const [isContactUsModalOn, setIsContactUsModalOn] = useState<boolean>(false);
 
   const { voteOverallResultData, refetch } = useGetResult(roomId);
+  console.log('voteOverallResultData', voteOverallResultData);
 
   const voteResult = voteOverallResultData?.data;
 
   const totalVote = voteResult.total;
   const winnerData = voteResult.win;
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   const handleModalClick = () => {
     setIsModalOn(true);

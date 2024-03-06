@@ -5,7 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 type Props = {
   children: ReactNode;
   errorFallback: ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
-  suspenseFallback: ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
+  suspenseFallback?: ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
 };
 
 function AsyncBoundary(props: Props) {
