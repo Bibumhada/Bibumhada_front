@@ -11,10 +11,15 @@ type Props = {
 };
 
 const ContactUsModal = (props: Props) => {
-  const handleToFormClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const openForm = (url: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSeUVqetIOFi3pOV1LH50b1wdq2GNnt1PQqFUMbP4pIvIqvSFg/viewform?usp=send_form');
+    window.open(url);
   };
+
+  const handleFeedbackFormClick = openForm('https://docs.google.com/forms/d/1gzJMOdNPdUeB5yUHmmUx8Ccax2t0x7ptT13TjDhfITU/edit');
+
+  const handleToInQuiryFormClick = openForm('https://forms.gle/SSdu5rTXxreTZtQk8');
+
   return (
     <S.ModalBackground className={props.className} onClick={props.handleModalClose}>
       <S.ModalLayout onClick={(event: React.MouseEvent<HTMLDivElement>) => event.stopPropagation()}>
@@ -30,7 +35,10 @@ const ContactUsModal = (props: Props) => {
           <br />
           내용이 있다면 남겨주세요
         </S.ModalContent>
-        <S.GoToInquireButton onClick={handleToFormClick}>문의하러 가기</S.GoToInquireButton>
+        <S.ButtonGroup>
+          <S.StyledButton onClick={handleFeedbackFormClick}>피드백 남기기</S.StyledButton>
+          <S.OrangeStyledButtons onClick={handleToInQuiryFormClick}>문의하러 가기</S.OrangeStyledButtons>
+        </S.ButtonGroup>
       </S.ModalLayout>
     </S.ModalBackground>
   );

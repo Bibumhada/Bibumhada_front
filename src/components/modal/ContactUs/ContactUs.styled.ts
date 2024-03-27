@@ -1,3 +1,4 @@
+import Button from 'components/common/Button/Button';
 import styled from 'styled-components';
 
 export const Layout = styled.div`
@@ -60,12 +61,22 @@ export const ModalContent = styled.p`
   line-height: 1.4;
 `;
 
-export const GoToInquireButton = styled.button`
+export const ButtonGroup = styled.div`
+  display: flex;
+  gap: 7px;
+  font-size: var(--md);
+  font-weight: var(--font-bold);
+`;
+
+export const StyledButton = styled(Button)`
   padding: 11px;
   width: 100%;
-  background-color: var(--color-main-orange);
-  color: #fff;
   border-radius: 10px;
   font-size: var(--md);
   font-weight: var(--font-bold);
+`;
+
+export const OrangeStyledButtons = styled(StyledButton)`
+  background-color: var(--color-main-orange);
+  color: #fff;
 `;
