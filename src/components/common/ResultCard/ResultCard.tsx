@@ -45,19 +45,19 @@ const ResultCard = (props: ResultCardProps) => {
 
   const oneWinner = (
     <S.RankingWrapper>
-      <img src={soup} alt="soup icon" />
-      <img src={pizza} alt="pizza icon" />
+      <S.foodIcon src={soup} alt="soup icon" />
+      <S.foodIcon src={pizza} alt="pizza icon" />
       <S.oneWinnerRanking>{props.rank}등</S.oneWinnerRanking>
-      <img src={hamburger} alt="hamburger icon" />
-      <img src={noodle} alt="noodle icon" />
+      <S.foodIcon src={hamburger} alt="hamburger icon" />
+      <S.foodIcon src={noodle} alt="noodle icon" />
     </S.RankingWrapper>
   );
 
   const multipleWinner = (
     <S.RankingWrapper>
-      <img src={pizza} alt="pizza icon" />
+      <S.foodIcon src={pizza} alt="pizza icon" />
       <S.multipleWinnerRanking>공동 {props.rank}등</S.multipleWinnerRanking>
-      <img src={hamburger} alt="hamburger icon" />
+      <S.foodIcon src={hamburger} alt="hamburger icon" />
     </S.RankingWrapper>
   );
   return (
@@ -65,7 +65,9 @@ const ResultCard = (props: ResultCardProps) => {
       {props.winnerNum === 1 ? oneWinner : multipleWinner}
       <span className="line"></span>
       <S.RestaurantName onClick={handleLinkClick}>
-        <strong className="name">{props.name}</strong>
+        <div className="name-container">
+          <strong className="name">{props.name}</strong>
+        </div>
         <img src={toDetail} alt="to external link icon" />
       </S.RestaurantName>
       <S.RestaurantTags>

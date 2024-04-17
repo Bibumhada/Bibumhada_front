@@ -6,6 +6,7 @@ import Button from 'components/common/Button/Button';
 import toDetail from 'assets/icons/btn-link-gray.svg';
 import shareResult from 'assets/icons/icon-share-resut.svg';
 import winner from 'assets/icons/icon-winner.svg';
+import toBackIcon from 'assets/icons/icon-to-back.svg';
 import splitCategory from 'util/splitCategory';
 import AsyncBoundary from 'components/common/AsyncBoundary';
 import useGetResult from 'apis/query/useGetResult';
@@ -85,7 +86,12 @@ function OverallRanking() {
     <>
       <S.Wrapper>
         <S.OverallRankingWrapper>
-          <h3 className="page-title">전체 순위</h3>
+          <S.Header>
+            <button>
+              <img src={toBackIcon} alt="to-previous-icon" onClick={() => navigate(-1)}></img>
+            </button>
+            <h3 className="page-title">전체 순위</h3>
+          </S.Header>
           <S.RestaurantList>
             {overallRankingData?.slice(0, 5).map((item: any) => (
               <S.RestaurantItem key={item.id}>
@@ -98,10 +104,14 @@ function OverallRanking() {
                   </p>
                 </S.Ranking>
                 <S.RestaurantData>
-                  <strong className="name">{item.title}</strong>
+                  <div className="name-distance-group">
+                    <div className="name-wrapper">
+                      <strong className="name">{item.title}</strong>
+                    </div>
+                    <p className="distance">{item.distance}m</p>
+                  </div>
                   <div className="tags">{`# ${splitCategory(item.category)}`}</div>
                 </S.RestaurantData>
-                <S.Distance className="distance">{item.distance}m</S.Distance>
                 <button className="detailbutton" type="button" onClick={(event) => handleLinkClick(event, item.link)}>
                   <img src={toDetail} alt="more detail icon" />
                 </button>
