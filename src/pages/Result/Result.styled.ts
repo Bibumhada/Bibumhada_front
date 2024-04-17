@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   background-color: var(--color-main-orange);
-  padding: 110px 26px 25px;
+  padding: 140px 30px 50px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -20,11 +20,11 @@ export const ShareResult = styled.div<ShareResultProps>`
   width: 100%;
   position: absolute;
   left: 50%;
-  top: ${(props) => (props.$isFirstText ? '100px' : '70px')};
+  top: ${(props) => (props.$isFirstText ? '52px' : '39px')};
   transform: translate(-50%, 0);
   color: #fff;
   font-weight: var(--font-bold);
-  font-size: var(--xl);
+  font-size: var(--lg);
   line-height: 35px;
   text-align: center;
   white-space: pre-line;
@@ -37,6 +37,7 @@ export const ContactUsButton = styled.button`
   position: absolute;
   top: 45px;
   right: 28px;
+  opacity: 0.9;
 `;
 
 export const ButtonLayout = styled.div`
@@ -64,6 +65,7 @@ export const ButtonShare = styled.button`
 
 export const ReloadButton = styled(Button)`
   margin-top: 15px;
+
   img {
     display: inline-block;
     margin-left: 15px;
