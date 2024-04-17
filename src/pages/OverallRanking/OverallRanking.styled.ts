@@ -13,13 +13,17 @@ export const OverallRankingWrapper = styled.div`
   justify-content: space-between;
   gap: 25px;
   height: 100vh;
+`;
+
+export const Header = styled.header`
+  display: flex;
 
   .page-title {
-    margin-bottom: 3px;
-    font-size: 30px;
+    display: inline-block;
+    margin: 0 auto;
+    font-size: var(--xl);
     font-weight: var(--font-bold);
     color: #fff;
-    text-align: center;
   }
 `;
 
@@ -68,7 +72,6 @@ export const Ranking = styled.div`
 `;
 
 export const RestaurantData = styled.div`
-  line-height: 1.7;
   padding-top: 4px;
   display: flex;
   flex-direction: column;
@@ -76,12 +79,21 @@ export const RestaurantData = styled.div`
   flex-grow: 1;
   min-width: 40%;
 
-  .name {
-    font-size: var(--md);
-    font-weight: var(--font-bold);
+  .name-distance-group {
+    margin-bottom: 7px;
+  }
+
+  .name-wrapper {
+    display: inline-block;
+    max-width: 80%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .name {
+    font-size: var(--md);
+    font-weight: var(--font-bold);
   }
 
   .tags {
@@ -89,10 +101,13 @@ export const RestaurantData = styled.div`
     gap: 5px;
     color: var(--color-main-orange);
   }
-`;
 
-export const Distance = styled.p`
-  color: var(--color-sub-gray);
+  .distance {
+    display: inline-block;
+    color: var(--color-sub-gray);
+    margin-left: 9px;
+    vertical-align: top;
+  }
 `;
 
 export const ButtonLayout = styled.div`
