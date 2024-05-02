@@ -31,7 +31,7 @@ const Notice = () => {
             <br />
             아래 [문의하러 가기]를 이용해주세요.
           </S.ContactText>
-          <S.OrangeStyledButtons>문의하러 가기</S.OrangeStyledButtons>
+          <S.OrangeStyledButtons onClick={handleToInQuiryFormClick}>문의하러 가기</S.OrangeStyledButtons>
         </S.ModalContents>
       </S.ModalLayout>
     </S.ModalBackground>
